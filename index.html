@@ -3,14 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Theme Switcher</title>
+  <title>Lotto Number Generator</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>Hello, World!</h1>
-    <p>Try switching between Light and Dark mode using the button below.</p>
-    <button id="theme-toggle">Toggle Dark Mode</button>
+    <h1>Lotto Number Generator</h1>
+    <div id="lotto-container" class="lotto-numbers">
+      <div class="ball">?</div>
+      <div class="ball">?</div>
+      <div class="ball">?</div>
+      <div class="ball">?</div>
+      <div class="ball">?</div>
+      <div class="ball">?</div>
+    </div>
+    <div class="controls">
+      <button id="generate-btn">Generate Numbers</button>
+      <button id="theme-toggle">Toggle Dark Mode</button>
+    </div>
   </div>
   <script defer src="main.js"></script>
 </body>
