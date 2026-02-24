@@ -3,84 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lotto Number Generator</title>
+  <title>Animal Face Test</title>
   <meta name="google-adsense-account" content="ca-pub-3483580006679652">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3483580006679652"
      crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 </head>
 <body>
   <div class="container">
     <nav class="top-nav">
       <select id="lang-select">
+        <option value="" disabled selected>Language</option>
         <option value="ko">한국어</option>
         <option value="en">English</option>
       </select>
-      <a href="animal.html" class="nav-link" data-i18n="goAnimal">Animal Face Test →</a>
+      <a href="lotto.html" class="nav-link" data-i18n="backLotto">← Lotto Generator</a>
     </nav>
-    <h1 data-i18n="lottoTitle">Lotto Number Generator</h1>
-    <p data-i18n="lottoSub">Try switching between Light and Dark mode using the button below.</p>
-    <div id="lotto-container" class="lotto-numbers">
-      <div class="ball">?</div>
-      <div class="ball">?</div>
-      <div class="ball">?</div>
-      <div class="ball">?</div>
-      <div class="ball">?</div>
-      <div class="ball">?</div>
+    
+    <h1 data-i18n="animalTitle">Animal Face Test</h1>
+    <p data-i18n="animalDesc">Find out which animal you look like!</p>
+    
+    <div class="test-area">
+      <div id="webcam-container"></div>
+      <img id="image-preview" src="#" alt="your image" />
+      <div id="label-container">
+        <div class="placeholder-msg">
+          <div style="font-size: 4rem; margin-bottom: 1rem;">📷</div>
+          <p data-i18n="cameraPrompt">Please upload a face photo or start the webcam!</p>
+        </div>
+      </div>
     </div>
+
     <div class="controls">
-      <button id="generate-btn" data-i18n="generateBtn">Generate Numbers</button>
+      <div class="upload-section">
+        <label for="image-upload" class="file-input-label" data-i18n="uploadBtn">Upload Image File</label>
+        <input type="file" id="image-upload" accept="image/*" onchange="handleFileUpload(this)">
+        <button type="button" id="start-btn" onclick="initWebcam()" data-i18n="startCamera">Start Real-time Camera</button>
+      </div>
     </div>
-
-    <hr class="divider">
-
-    <div class="inquiry-section">
-      <h3 data-i18n="partnershipTitle">Partnership Inquiry</h3>
-      <form action="https://formspree.io/f/mpqjkqza" method="POST" id="inquiry-form">
-        <div class="form-group">
-          <input type="text" name="name" placeholder="Name" data-i18n="placeholderName" required>
-        </div>
-        <div class="form-group">
-          <input type="email" name="email" placeholder="Email" data-i18n="placeholderEmail" required>
-        </div>
-        <div class="form-group">
-          <textarea name="message" placeholder="Message" data-i18n="placeholderMsg" required></textarea>
-        </div>
-        <button type="submit" class="submit-btn" data-i18n="sendInquiry">Send Inquiry</button>
-      </form>
-    </div>
-
-    <hr class="divider">
-
-    <div id="disqus_thread"></div>
-    <script>
-      var disqus_config = function () {
-        this.page.url = window.location.href;
-        this.page.identifier = window.location.pathname;
-      };
-      (function() {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://test-fmewrvcnjt.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
     <div class="content-section" style="margin-top: 3rem; text-align: left; line-height: 1.6;">
-        <h2 data-i18n="aboutLottoTitle">About This Lotto Generator</h2>
-        <p data-i18n="aboutLottoDesc">Our random number generator is designed to create a set of unique numbers for lottery games. It uses a secure randomization algorithm to ensure fairness and unpredictability. While we cannot guarantee a win, using a random generator is a popular method for players who want to avoid common patterns like birthdays or sequences.</p>
+        <h2 data-i18n="aboutAnimalTitle">About Animal Face Test</h2>
+        <p data-i18n="aboutAnimalDesc">Ever wondered which animal you resemble the most? Our AI-powered Animal Face Test uses advanced image recognition technology to analyze your facial features and match them with animal characteristics.</p>
         
-        <h3 data-i18n="whyLottoTitle">Why Use a Random Generator?</h3>
-        <ul>
-            <li data-i18n="whyLotto1"><strong>Remove Bias:</strong> Avoid picking numbers based on personal significance, which many other players might also choose.</li>
-            <li data-i18n="whyLotto2"><strong>Quick Selection:</strong> Generate a full set of numbers instantly without overthinking.</li>
-            <li data-i18n="whyLotto3"><strong>Statistical Fairness:</strong> Each number has an equal probability of being selected.</li>
-        </ul>
-        <p><strong>Disclaimer:</strong> This tool is for entertainment purposes only. Please play responsibly.</p>
+        <h3 data-i18n="howItWorksTitle">How It Works</h3>
+        <p data-i18n="howItWorksDesc">We use a pre-trained machine learning model (Teachable Machine by Google) that has learned to identify patterns in images. When you upload a photo or use your webcam, the model scans key facial landmarks and compares them to its database of animal faces to give you a percentage match.</p>
+
+        <h3 data-i18n="privacyTitle">Is My Data Safe?</h3>
+        <p data-i18n="privacyDesc"><strong>Yes!</strong> All image processing happens directly in your browser. Your photos and video stream are <strong>never sent to our servers</strong> or stored anywhere. You can use this tool with complete privacy.</p>
     </div>
 
-    <footer style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--ball-bg); font-size: 0.9rem;">
+    <footer style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--ball-bg); font-size: 0.9rem; text-align: center;">
         <p data-i18n="footerCopy">&copy; 2026 Lotto & Animal Test. All rights reserved.</p>
         <p>
             <a href="privacy.html" style="color: var(--text-color); margin: 0 10px;" data-i18n="privacyPolicy">Privacy Policy</a> | 
@@ -88,7 +63,105 @@
         </p>
     </footer>
   </div>
+
   <button id="theme-toggle" data-i18n="toggleDark">Toggle Dark Mode</button>
+
+  <script type="text/javascript">
+    const URL = "https://teachablemachine.withgoogle.com/models/vCKKJlTT7/";
+    let model, webcam, labelContainer, maxPredictions;
+    let isWebcamActive = false;
+
+    async function loadModel() {
+        if (!model) {
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
+            model = await tmImage.load(modelURL, metadataURL);
+            maxPredictions = model.getTotalClasses();
+            
+            labelContainer = document.getElementById("label-container");
+            labelContainer.innerHTML = "";
+            for (let i = 0; i < maxPredictions; i++) {
+                const labelDiv = document.createElement("div");
+                labelDiv.className = "prediction-bar";
+                labelContainer.appendChild(labelDiv);
+            }
+        }
+    }
+
+    async function initWebcam() {
+        await loadModel();
+        isWebcamActive = true;
+        const startBtn = document.getElementById("start-btn");
+        startBtn.disabled = true;
+        const lang = localStorage.getItem('lang') || 'ko';
+        startBtn.textContent = lang === 'ko' ? "웹캠 로딩 중..." : "Loading Webcam...";
+        document.getElementById("image-preview").style.display = "none";
+        
+        const flip = true; 
+        webcam = new tmImage.Webcam(300, 300, flip); 
+        await webcam.setup(); 
+        await webcam.play();
+        window.requestAnimationFrame(loop);
+
+        document.getElementById("webcam-container").style.display = "block";
+        document.getElementById("webcam-container").appendChild(webcam.canvas);
+        startBtn.style.display = "none";
+    }
+
+    async function loop() {
+        if (isWebcamActive) {
+            webcam.update();
+            await predict(webcam.canvas);
+            window.requestAnimationFrame(loop);
+        }
+    }
+
+    async function handleFileUpload(input) {
+        if (input.files && input.files[0]) {
+            await loadModel();
+            isWebcamActive = false;
+            if (webcam) {
+                webcam.stop();
+                document.getElementById("webcam-container").innerHTML = "";
+            }
+            document.getElementById("webcam-container").style.display = "none";
+            const startBtn = document.getElementById("start-btn");
+            startBtn.style.display = "block";
+            startBtn.disabled = false;
+            const lang = localStorage.getItem('lang') || 'ko';
+            startBtn.textContent = lang === 'ko' ? "실시간 카메라 시작" : "Start Real-time Camera";
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const img = document.getElementById("image-preview");
+                img.src = e.target.result;
+                img.style.display = "block";
+                img.onload = async () => {
+                    await predict(img);
+                };
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    async function predict(inputElement) {
+        const prediction = await model.predict(inputElement);
+        for (let i = 0; i < maxPredictions; i++) {
+            const className = prediction[i].className;
+            const probability = (prediction[i].probability * 100).toFixed(0);
+            
+            labelContainer.childNodes[i].innerHTML = `
+              <div class="label-info">
+                <span>${className}</span>
+                <span>${probability}%</span>
+              </div>
+              <div class="progress-bg">
+                <div class="progress-fill" style="width: ${probability}%"></div>
+              </div>
+            `;
+        }
+    }
+  </script>
   <script defer src="main.js"></script>
 </body>
 </html>

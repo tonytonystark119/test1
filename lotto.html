@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lotto Number Generator</title>
+  <meta name="google-adsense-account" content="ca-pub-3483580006679652">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3483580006679652"
+     crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <nav class="top-nav">
+      <select id="lang-select">
+        <option value="" disabled selected>Language</option>
+        <option value="ko">한국어</option>
+        <option value="en">English</option>
+      </select>
+      <a href="index.html" class="nav-link" data-i18n="goAnimal">Animal Face Test →</a>
+    </nav>
+    <h1 data-i18n="lottoTitle">Lotto Number Generator</h1>
+    <p data-i18n="lottoSub">Try switching between Light and Dark mode using the button below.</p>
+    <div id="lotto-container" class="lotto-numbers">
+      <div class="ball">?</div>
+      <div class="ball">?</div>
+      <div class="ball">?</div>
+      <div class="ball">?</div>
+      <div class="ball">?</div>
+      <div class="ball">?</div>
+    </div>
+    <div class="controls">
+      <button id="generate-btn" data-i18n="generateBtn">Generate Numbers</button>
+    </div>
+
+    <hr class="divider">
+
+    <div class="inquiry-section">
+      <h3 data-i18n="partnershipTitle">Partnership Inquiry</h3>
+      <form action="https://formspree.io/f/mpqjkqza" method="POST" id="inquiry-form">
+        <div class="form-group">
+          <input type="text" name="name" placeholder="Name" data-i18n="placeholderName" required>
+        </div>
+        <div class="form-group">
+          <input type="email" name="email" placeholder="Email" data-i18n="placeholderEmail" required>
+        </div>
+        <div class="form-group">
+          <textarea name="message" placeholder="Message" data-i18n="placeholderMsg" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn" data-i18n="sendInquiry">Send Inquiry</button>
+      </form>
+    </div>
+
+    <hr class="divider">
+
+    <div id="disqus_thread"></div>
+    <script>
+      var disqus_config = function () {
+        this.page.url = window.location.href;
+        this.page.identifier = window.location.pathname;
+      };
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://test-fmewrvcnjt.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    <div class="content-section" style="margin-top: 3rem; text-align: left; line-height: 1.6;">
+        <h2 data-i18n="aboutLottoTitle">About This Lotto Generator</h2>
+        <p data-i18n="aboutLottoDesc">Our random number generator is designed to create a set of unique numbers for lottery games. It uses a secure randomization algorithm to ensure fairness and unpredictability. While we cannot guarantee a win, using a random generator is a popular method for players who want to avoid common patterns like birthdays or sequences.</p>
+        
+        <h3 data-i18n="whyLottoTitle">Why Use a Random Generator?</h3>
+        <ul>
+            <li data-i18n="whyLotto1"><strong>Remove Bias:</strong> Avoid picking numbers based on personal significance, which many other players might also choose.</li>
+            <li data-i18n="whyLotto2"><strong>Quick Selection:</strong> Generate a full set of numbers instantly without overthinking.</li>
+            <li data-i18n="whyLotto3"><strong>Statistical Fairness:</strong> Each number has an equal probability of being selected.</li>
+        </ul>
+        <p><strong>Disclaimer:</strong> This tool is for entertainment purposes only. Please play responsibly.</p>
+    </div>
+
+    <footer style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--ball-bg); font-size: 0.9rem;">
+        <p data-i18n="footerCopy">&copy; 2026 Lotto & Animal Test. All rights reserved.</p>
+        <p>
+            <a href="privacy.html" style="color: var(--text-color); margin: 0 10px;" data-i18n="privacyPolicy">Privacy Policy</a> | 
+            <a href="terms.html" style="color: var(--text-color); margin: 0 10px;" data-i18n="termsOfService">Terms of Service</a>
+        </p>
+    </footer>
+  </div>
+  <button id="theme-toggle" data-i18n="toggleDark">Toggle Dark Mode</button>
+  <script defer src="main.js"></script>
+</body>
+</html>

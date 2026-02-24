@@ -33,8 +33,8 @@ const translations = {
     termsOfService: "Terms of Service",
     langEn: "English",
     langKo: "한국어",
+    cameraPrompt: "Please upload a face photo or start the webcam!",
     privacyContent: `
-        <h2>1. Introduction</h2>
         <p>Welcome to our website. We respect your privacy and are committed to protecting it.</p>
         <h2>2. Information We Collect</h2>
         <p>We do not collect personal identification information unless you voluntarily provide it.</p>
@@ -86,8 +86,8 @@ const translations = {
     termsOfService: "이용약관",
     langEn: "English",
     langKo: "한국어",
+    cameraPrompt: "얼굴 사진을 업로드 하거나 웹캠을 키세요!",
     privacyContent: `
-        <h2>1. 서론</h2>
         <p>저희 웹사이트 방문을 환영합니다. 귀하의 개인정보를 존중하며 이를 보호하기 위해 최선을 다하고 있습니다.</p>
         <h2>2. 수집하는 정보</h2>
         <p>귀하가 자발적으로 제공하지 않는 한 개인 식별 정보를 수집하지 않습니다.</p>
