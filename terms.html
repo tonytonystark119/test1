@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,29 +13,35 @@
 <body>
     <div class="container">
         <nav class="top-nav">
+            <select id="lang-select">
+                <option value="ko">한국어</option>
+                <option value="en">English</option>
+            </select>
             <a href="index.html" class="nav-link">Home</a>
         </nav>
-        <h1>Terms of Service</h1>
+        <h1 data-i18n="termsOfService">Terms of Service</h1>
         <div class="content-section">
             <p>Last updated: February 24, 2026</p>
             
-            <h2>1. Acceptance of Terms</h2>
-            <p>By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement.</p>
+            <div data-i18n="termsContent">
+                <h2>1. Acceptance of Terms</h2>
+                <p>By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement.</p>
 
-            <h2>2. Disclaimer</h2>
-            <p>The information and tools provided on this site are for entertainment purposes only. We do not guarantee the accuracy, completeness, or usefulness of any information or results generated. Users should exercise their own judgment when using the content.</p>
+                <h2>2. Disclaimer</h2>
+                <p>The information and tools provided on this site are for entertainment purposes only. We do not guarantee the accuracy, completeness, or usefulness of any information or results generated. Users should exercise their own judgment when using the content.</p>
 
-            <h2>3. Limitation of Liability</h2>
-            <p>In no event shall the owners of this website be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on this website.</p>
+                <h2>3. Limitation of Liability</h2>
+                <p>In no event shall the owners of this website be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on this website.</p>
 
-            <h2>4. Changes to Terms</h2>
-            <p>We reserve the right to modify these terms at any time. Your continued use of the site following any changes signifies your acceptance of the modified terms.</p>
+                <h2>4. Changes to Terms</h2>
+                <p>We reserve the right to modify these terms at any time. Your continued use of the site following any changes signifies your acceptance of the modified terms.</p>
 
-            <h2>5. Contact Information</h2>
-            <p>If you have any questions about these Terms, please contact us via the form on the homepage.</p>
+                <h2>5. Contact Information</h2>
+                <p>If you have any questions about these Terms, please contact us via the form on the homepage.</p>
+            </div>
         </div>
     </div>
-    <button id="theme-toggle">Toggle Dark Mode</button>
+    <button id="theme-toggle" data-i18n="toggleDark">Toggle Dark Mode</button>
     <script defer src="main.js"></script>
 </body>
 </html>

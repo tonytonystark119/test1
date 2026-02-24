@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,11 +14,15 @@
 <body>
   <div class="container">
     <nav class="top-nav">
-      <a href="index.html" class="nav-link">← Lotto Generator</a>
+      <select id="lang-select">
+        <option value="ko">한국어</option>
+        <option value="en">English</option>
+      </select>
+      <a href="index.html" class="nav-link" data-i18n="backLotto">← Lotto Generator</a>
     </nav>
     
-    <h1>Animal Face Test</h1>
-    <p>Find out which animal you look like!</p>
+    <h1 data-i18n="animalTitle">Animal Face Test</h1>
+    <p data-i18n="animalDesc">Find out which animal you look like!</p>
     
     <div class="test-area">
       <div id="webcam-container"></div>
@@ -28,33 +32,33 @@
 
     <div class="controls">
       <div class="upload-section">
-        <label for="image-upload" class="file-input-label">Upload Image File</label>
+        <label for="image-upload" class="file-input-label" data-i18n="uploadBtn">Upload Image File</label>
         <input type="file" id="image-upload" accept="image/*" onchange="handleFileUpload(this)">
-        <button type="button" id="start-btn" onclick="initWebcam()">Start Real-time Camera</button>
+        <button type="button" id="start-btn" onclick="initWebcam()" data-i18n="startCamera">Start Real-time Camera</button>
       </div>
     </div>
 
     <div class="content-section" style="margin-top: 3rem; text-align: left; line-height: 1.6;">
-        <h2>About Animal Face Test</h2>
-        <p>Ever wondered which animal you resemble the most? Our AI-powered Animal Face Test uses advanced image recognition technology to analyze your facial features and match them with animal characteristics.</p>
+        <h2 data-i18n="aboutAnimalTitle">About Animal Face Test</h2>
+        <p data-i18n="aboutAnimalDesc">Ever wondered which animal you resemble the most? Our AI-powered Animal Face Test uses advanced image recognition technology to analyze your facial features and match them with animal characteristics.</p>
         
-        <h3>How It Works</h3>
-        <p>We use a pre-trained machine learning model (Teachable Machine by Google) that has learned to identify patterns in images. When you upload a photo or use your webcam, the model scans key facial landmarks and compares them to its database of animal faces to give you a percentage match.</p>
+        <h3 data-i18n="howItWorksTitle">How It Works</h3>
+        <p data-i18n="howItWorksDesc">We use a pre-trained machine learning model (Teachable Machine by Google) that has learned to identify patterns in images. When you upload a photo or use your webcam, the model scans key facial landmarks and compares them to its database of animal faces to give you a percentage match.</p>
 
-        <h3>Is My Data Safe?</h3>
-        <p><strong>Yes!</strong> All image processing happens directly in your browser. Your photos and video stream are <strong>never sent to our servers</strong> or stored anywhere. You can use this tool with complete privacy.</p>
+        <h3 data-i18n="privacyTitle">Is My Data Safe?</h3>
+        <p data-i18n="privacyDesc"><strong>Yes!</strong> All image processing happens directly in your browser. Your photos and video stream are <strong>never sent to our servers</strong> or stored anywhere. You can use this tool with complete privacy.</p>
     </div>
 
     <footer style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--ball-bg); font-size: 0.9rem; text-align: center;">
-        <p>&copy; 2026 Lotto & Animal Test. All rights reserved.</p>
+        <p data-i18n="footerCopy">&copy; 2026 Lotto & Animal Test. All rights reserved.</p>
         <p>
-            <a href="privacy.html" style="color: var(--text-color); margin: 0 10px;">Privacy Policy</a> | 
-            <a href="terms.html" style="color: var(--text-color); margin: 0 10px;">Terms of Service</a>
+            <a href="privacy.html" style="color: var(--text-color); margin: 0 10px;" data-i18n="privacyPolicy">Privacy Policy</a> | 
+            <a href="terms.html" style="color: var(--text-color); margin: 0 10px;" data-i18n="termsOfService">Terms of Service</a>
         </p>
     </footer>
   </div>
 
-  <button id="theme-toggle">Toggle Dark Mode</button>
+  <button id="theme-toggle" data-i18n="toggleDark">Toggle Dark Mode</button>
 
   <script type="text/javascript">
     const URL = "https://teachablemachine.withgoogle.com/models/vCKKJlTT7/";
@@ -81,8 +85,9 @@
     async function initWebcam() {
         await loadModel();
         isWebcamActive = true;
-        document.getElementById("start-btn").disabled = true;
-        document.getElementById("start-btn").textContent = "Loading Webcam...";
+        const startBtn = document.getElementById("start-btn");
+        startBtn.disabled = true;
+        startBtn.textContent = localStorage.getItem('lang') === 'ko' ? "웹캠 로딩 중..." : "Loading Webcam...";
         document.getElementById("image-preview").style.display = "none";
         
         const flip = true; 
@@ -93,7 +98,7 @@
 
         document.getElementById("webcam-container").style.display = "block";
         document.getElementById("webcam-container").appendChild(webcam.canvas);
-        document.getElementById("start-btn").style.display = "none";
+        startBtn.style.display = "none";
     }
 
     async function loop() {
@@ -113,17 +118,16 @@
                 document.getElementById("webcam-container").innerHTML = "";
             }
             document.getElementById("webcam-container").style.display = "none";
-            document.getElementById("start-btn").style.display = "block";
-            document.getElementById("start-btn").disabled = false;
-            document.getElementById("start-btn").textContent = "Start Real-time Camera";
+            const startBtn = document.getElementById("start-btn");
+            startBtn.style.display = "block";
+            startBtn.disabled = false;
+            startBtn.textContent = localStorage.getItem('lang') === 'ko' ? "실시간 카메라 시작" : "Start Real-time Camera";
 
             const reader = new FileReader();
             reader.onload = async function(e) {
                 const img = document.getElementById("image-preview");
                 img.src = e.target.result;
                 img.style.display = "block";
-                
-                // Wait for image to load before predicting
                 img.onload = async () => {
                     await predict(img);
                 };
@@ -149,23 +153,7 @@
             `;
         }
     }
-
-    // Theme Toggle Logic
-    document.addEventListener('DOMContentLoaded', () => {
-      const themeToggle = document.getElementById('theme-toggle');
-      const body = document.body;
-      const currentTheme = localStorage.getItem('theme');
-      if (currentTheme === 'dark') {
-        body.classList.add('dark-mode');
-        themeToggle.textContent = 'Toggle Light Mode';
-      }
-      themeToggle.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        let theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-        themeToggle.textContent = theme === 'dark' ? 'Toggle Light Mode' : 'Toggle Dark Mode';
-        localStorage.setItem('theme', theme);
-      });
-    });
   </script>
+  <script defer src="main.js"></script>
 </body>
 </html>

@@ -75,7 +75,19 @@ body {
 .top-nav {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
   margin-bottom: 1.5rem;
+}
+
+#lang-select {
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: var(--ball-bg);
+  color: var(--text-color);
+  border: 1px solid var(--text-color);
+  font-family: inherit;
+  cursor: pointer;
 }
 
 .upload-section {
