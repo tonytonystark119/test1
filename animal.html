@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animal Face Test</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <nav class="top-nav">
+      <a href="index.html" class="nav-link">← Lotto Generator</a>
+    </nav>
+    
+    <h1>Animal Face Test</h1>
+    <p>Find out which animal you look like!</p>
+    
+    <div class="test-area">
+      <div id="webcam-container"></div>
+      <div id="label-container"></div>
+    </div>
+
+    <div class="controls">
+      <button type="button" id="start-btn" onclick="init()">Start Camera</button>
+    </div>
+  </div>
+
+  <button id="theme-toggle">Toggle Dark Mode</button>
+
+  <script type="text/javascript">
+    const URL = "https://teachablemachine.withgoogle.com/models/vCKKJlTT7/";
+    let model, webcam, labelContainer, maxPredictions;
+
+    async function init() {
+        document.getElementById("start-btn").disabled = true;
+        document.getElementById("start-btn").textContent = "Loading Model...";
+        
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        const flip = true; 
+        webcam = new tmImage.Webcam(300, 300, flip); 
+        await webcam.setup(); 
+        await webcam.play();
+        window.requestAnimationFrame(loop);
+
+        document.getElementById("webcam-container").appendChild(webcam.canvas);
+        labelContainer = document.getElementById("label-container");
+        labelContainer.innerHTML = ""; // Clear existing
+        for (let i = 0; i < maxPredictions; i++) {
+            const labelDiv = document.createElement("div");
+            labelDiv.className = "prediction-bar";
+            labelContainer.appendChild(labelDiv);
+        }
+        document.getElementById("start-btn").style.display = "none";
+    }
+
+    async function loop() {
+        webcam.update();
+        await predict();
+        window.requestAnimationFrame(loop);
+    }
+
+    async function predict() {
+        const prediction = await model.predict(webcam.canvas);
+        for (let i = 0; i < maxPredictions; i++) {
+            const className = prediction[i].className;
+            const probability = (prediction[i].probability * 100).toFixed(0);
+            
+            labelContainer.childNodes[i].innerHTML = `
+              <div class="label-info">
+                <span>${className}</span>
+                <span>${probability}%</span>
+              </div>
+              <div class="progress-bg">
+                <div class="progress-fill" style="width: ${probability}%"></div>
+              </div>
+            `;
+        }
+    }
+
+    // Theme Toggle Logic (Shared)
+    document.addEventListener('DOMContentLoaded', () => {
+      const themeToggle = document.getElementById('theme-toggle');
+      const body = document.body;
+      const currentTheme = localStorage.getItem('theme');
+      if (currentTheme === 'dark') {
+        body.classList.add('dark-mode');
+        themeToggle.textContent = 'Toggle Light Mode';
+      }
+      themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        let theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+        themeToggle.textContent = theme === 'dark' ? 'Toggle Light Mode' : 'Toggle Dark Mode';
+        localStorage.setItem('theme', theme);
+      });
+    });
+  </script>
+</body>
+</html>
