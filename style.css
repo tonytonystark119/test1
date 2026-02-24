@@ -78,6 +78,70 @@ body {
   gap: 10px;
 }
 
+.divider {
+  border: 0;
+  border-top: 1px solid var(--ball-bg);
+  margin: 2rem 0;
+  width: 100%;
+}
+
+.inquiry-section {
+  text-align: left;
+}
+
+.inquiry-section h3 {
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.inquiry-section input,
+.inquiry-section textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--ball-bg);
+  border-radius: 8px;
+  background-color: var(--ball-bg);
+  color: var(--ball-text);
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.inquiry-section textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.inquiry-section input:focus,
+.inquiry-section textarea:focus {
+  outline: none;
+  border-color: var(--btn-bg);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.submit-btn {
+  width: 100%;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: opacity 0.2s;
+}
+
+.submit-btn:hover {
+  opacity: 0.9;
+}
+
 button {
   background-color: var(--btn-bg);
   color: var(--btn-text);
