@@ -73,8 +73,45 @@ body {
 }
 
 .top-nav {
-  text-align: left;
+  display: flex;
+  justify-content: flex-end;
   margin-bottom: 1.5rem;
+}
+
+.upload-section {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#image-preview {
+  max-width: 300px;
+  max-height: 300px;
+  border-radius: 15px;
+  display: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
+}
+
+.file-input-label {
+  background-color: var(--ball-bg);
+  color: var(--text-color);
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid var(--text-color);
+  font-size: 0.9rem;
+  transition: opacity 0.2s;
+}
+
+.file-input-label:hover {
+  opacity: 0.8;
+}
+
+#image-upload {
+  display: none;
 }
 
 .nav-link {

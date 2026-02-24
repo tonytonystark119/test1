@@ -19,11 +19,16 @@
     
     <div class="test-area">
       <div id="webcam-container"></div>
+      <img id="image-preview" src="#" alt="your image" />
       <div id="label-container"></div>
     </div>
 
     <div class="controls">
-      <button type="button" id="start-btn" onclick="init()">Start Camera</button>
+      <div class="upload-section">
+        <label for="image-upload" class="file-input-label">Upload Image File</label>
+        <input type="file" id="image-upload" accept="image/*" onchange="handleFileUpload(this)">
+        <button type="button" id="start-btn" onclick="initWebcam()">Start Real-time Camera</button>
+      </div>
     </div>
   </div>
 
@@ -32,42 +37,81 @@
   <script type="text/javascript">
     const URL = "https://teachablemachine.withgoogle.com/models/vCKKJlTT7/";
     let model, webcam, labelContainer, maxPredictions;
+    let isWebcamActive = false;
 
-    async function init() {
+    async function loadModel() {
+        if (!model) {
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
+            model = await tmImage.load(modelURL, metadataURL);
+            maxPredictions = model.getTotalClasses();
+            
+            labelContainer = document.getElementById("label-container");
+            labelContainer.innerHTML = "";
+            for (let i = 0; i < maxPredictions; i++) {
+                const labelDiv = document.createElement("div");
+                labelDiv.className = "prediction-bar";
+                labelContainer.appendChild(labelDiv);
+            }
+        }
+    }
+
+    async function initWebcam() {
+        await loadModel();
+        isWebcamActive = true;
         document.getElementById("start-btn").disabled = true;
-        document.getElementById("start-btn").textContent = "Loading Model...";
+        document.getElementById("start-btn").textContent = "Loading Webcam...";
+        document.getElementById("image-preview").style.display = "none";
         
-        const modelURL = URL + "model.json";
-        const metadataURL = URL + "metadata.json";
-
-        model = await tmImage.load(modelURL, metadataURL);
-        maxPredictions = model.getTotalClasses();
-
         const flip = true; 
         webcam = new tmImage.Webcam(300, 300, flip); 
         await webcam.setup(); 
         await webcam.play();
         window.requestAnimationFrame(loop);
 
+        document.getElementById("webcam-container").style.display = "block";
         document.getElementById("webcam-container").appendChild(webcam.canvas);
-        labelContainer = document.getElementById("label-container");
-        labelContainer.innerHTML = ""; // Clear existing
-        for (let i = 0; i < maxPredictions; i++) {
-            const labelDiv = document.createElement("div");
-            labelDiv.className = "prediction-bar";
-            labelContainer.appendChild(labelDiv);
-        }
         document.getElementById("start-btn").style.display = "none";
     }
 
     async function loop() {
-        webcam.update();
-        await predict();
-        window.requestAnimationFrame(loop);
+        if (isWebcamActive) {
+            webcam.update();
+            await predict(webcam.canvas);
+            window.requestAnimationFrame(loop);
+        }
     }
 
-    async function predict() {
-        const prediction = await model.predict(webcam.canvas);
+    async function handleFileUpload(input) {
+        if (input.files && input.files[0]) {
+            await loadModel();
+            isWebcamActive = false;
+            if (webcam) {
+                webcam.stop();
+                document.getElementById("webcam-container").innerHTML = "";
+            }
+            document.getElementById("webcam-container").style.display = "none";
+            document.getElementById("start-btn").style.display = "block";
+            document.getElementById("start-btn").disabled = false;
+            document.getElementById("start-btn").textContent = "Start Real-time Camera";
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const img = document.getElementById("image-preview");
+                img.src = e.target.result;
+                img.style.display = "block";
+                
+                // Wait for image to load before predicting
+                img.onload = async () => {
+                    await predict(img);
+                };
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    async function predict(inputElement) {
+        const prediction = await model.predict(inputElement);
         for (let i = 0; i < maxPredictions; i++) {
             const className = prediction[i].className;
             const probability = (prediction[i].probability * 100).toFixed(0);
@@ -84,7 +128,7 @@
         }
     }
 
-    // Theme Toggle Logic (Shared)
+    // Theme Toggle Logic
     document.addEventListener('DOMContentLoaded', () => {
       const themeToggle = document.getElementById('theme-toggle');
       const body = document.body;
