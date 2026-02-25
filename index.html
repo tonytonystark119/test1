@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Animal Face Test</title>
+  <title>AI Animal Face Test & Physiognomy Analysis</title>
+  <meta name="description" content="Discover your animal alter ego with our advanced AI facial recognition technology. Read our comprehensive guide on animal face physiognomy, AI technology, and more.">
   <meta name="google-adsense-account" content="ca-pub-3483580006679652">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3483580006679652"
-     crossorigin="anonymous"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3483580006679652" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 </head>
 <body>
-  <div class="container">
+  <div class="container main-content-wrapper">
     <nav class="top-nav">
       <select id="lang-select">
         <option value="" disabled selected>Language</option>
@@ -22,44 +22,114 @@
       <a href="lotto.html" class="nav-link" data-i18n="backLotto">← Lotto Generator</a>
     </nav>
     
-    <h1 data-i18n="animalTitle">Animal Face Test</h1>
-    <p data-i18n="animalDesc">Find out which animal you look like!</p>
+    <header class="page-header">
+        <h1 data-i18n="animalTitle">AI Animal Face Test & Physiognomy</h1>
+        <p class="subtitle" data-i18n="animalDesc">Discover your animal alter ego with our advanced AI facial recognition technology.</p>
+    </header>
     
-    <div class="test-area">
-      <div id="webcam-container"></div>
-      <img id="image-preview" src="#" alt="your image" />
-      <div id="label-container">
-        <div class="placeholder-msg">
-          <div style="font-size: 4rem; margin-bottom: 1rem;">📷</div>
-          <p data-i18n="cameraPrompt">Please upload a face photo or start the webcam!</p>
+    <!-- The Tool Section -->
+    <section class="tool-section">
+        <div class="test-area">
+          <div id="webcam-container"></div>
+          <img id="image-preview" src="#" alt="your image" />
+          <div id="label-container">
+            <div class="placeholder-msg">
+              <div style="font-size: 4rem; margin-bottom: 1rem;">📷</div>
+              <p data-i18n="cameraPrompt">Please upload a clear, front-facing photo or start the webcam for analysis.</p>
+            </div>
+          </div>
         </div>
-      </div>
+
+        <div class="controls">
+          <div class="upload-section">
+            <label for="image-upload" class="file-input-label" data-i18n="uploadBtn">Upload Image File</label>
+            <input type="file" id="image-upload" accept="image/*" onchange="handleFileUpload(this)">
+            <button type="button" id="start-btn" onclick="initWebcam()" data-i18n="startCamera">Start Real-time Camera</button>
+          </div>
+        </div>
+    </section>
+
+    <!-- Comprehensive Article Sections for Adsense -->
+    <article class="content-section article-layout">
+        <section>
+            <h2 data-i18n="aboutAnimalTitle">Introduction to Animal Face Physiognomy</h2>
+            <p data-i18n="aboutAnimalDesc">For centuries, physiognomy—the assessment of a person's character or personality from their outer appearance, especially the face—has intrigued humanity. In modern pop culture, classifying faces into 'animal types' has become a fascinating trend. Our AI-powered tool blends this cultural phenomenon with state-of-the-art machine learning to analyze your unique facial geometry.</p>
+        </section>
+
+        <!-- Ad Placeholder -->
+        <div class="ad-placeholder">
+            <!-- Google AdSense unit will go here -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3483580006679652"
+                 data-ad-slot="1234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <section>
+            <h2 data-i18n="typesAnimalTitle">Detailed Breakdown of Animal Face Types</h2>
+            <ul class="detailed-list">
+                <li data-i18n="typesAnimalDog">🐶 Dog Face: Characterized by round, droopy eyes and a generally soft, friendly contour. People with 'dog faces' often project warmth, loyalty, and approachability.</li>
+                <li data-i18n="typesAnimalCat">🐱 Cat Face: Defined by sharp, slightly upturned 'cat eyes', distinct cheekbones, and a sharp jawline. This face type exudes confidence, chicness, and a mysterious allure.</li>
+                <li data-i18n="typesAnimalFox">🦊 Fox Face: Similar to the cat but often with longer, narrower features and extremely sharp eye corners. It represents wit, charm, and a captivating, sometimes sly elegance.</li>
+                <li data-i18n="typesAnimalDeer">🦌 Deer Face: Known for large, bright, and innocent-looking eyes with a long, elegant neck and soft features. It projects gentleness, purity, and a calm demeanor.</li>
+                <li data-i18n="typesAnimalRabbit">🐰 Rabbit Face: Features a cute, slightly shorter face with bright eyes and a prominent, adorable mouth/teeth area. It represents youthfulness, energy, and an incredibly lovable vibe.</li>
+                <li data-i18n="typesAnimalBear">🐻 Bear Face: A rounder, broader face with soft, comforting features. It gives off a dependable, cozy, and highly trustworthy impression.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2 data-i18n="techAnimalTitle">How Our AI Technology Works</h2>
+            <p data-i18n="techAnimalDesc">Our system utilizes a Convolutional Neural Network (CNN) trained on thousands of carefully categorized facial images. When you upload a photo, the AI detects facial landmarks (eyes, nose, mouth, jawline) and extracts mathematical vectors. These vectors are then compared against our trained model to calculate percentage matches across different animal categories in real-time.</p>
+        </section>
+
+        <section>
+            <h2 data-i18n="faqTitle">Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <p class="faq-q" data-i18n="faq2Q">Q: Can the animal test analyze multiple faces at once?</p>
+                <p class="faq-a" data-i18n="faq2A">A: Currently, the model is optimized for single-face analysis. Please ensure only one face is clearly visible.</p>
+            </div>
+            <div class="faq-item">
+                <p class="faq-q" data-i18n="faq3Q">Q: Do I need to pay to use these tools?</p>
+                <p class="faq-a" data-i18n="faq3A">A: No, our tools are 100% free to use, supported by advertisements.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 data-i18n="privacyTitle">Strict Data Privacy & Security</h2>
+            <p data-i18n="privacyDesc">Your privacy is our utmost priority. The AI models run entirely on the client-side (within your browser using TensorFlow.js). This means your images are never uploaded, transmitted, or stored on any external servers. Your biometric data remains exclusively on your personal device.</p>
+        </section>
+    </article>
+
+    <hr class="divider">
+    
+    <div class="community-section">
+        <h3 data-i18n="disqusTitle">Community & Discussion</h3>
+        <div id="disqus_thread"></div>
+        <script>
+          var disqus_config = function () {
+            this.page.url = window.location.href;
+            this.page.identifier = window.location.pathname;
+          };
+          (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://test-fmewrvcnjt.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
 
-    <div class="controls">
-      <div class="upload-section">
-        <label for="image-upload" class="file-input-label" data-i18n="uploadBtn">Upload Image File</label>
-        <input type="file" id="image-upload" accept="image/*" onchange="handleFileUpload(this)">
-        <button type="button" id="start-btn" onclick="initWebcam()" data-i18n="startCamera">Start Real-time Camera</button>
-      </div>
-    </div>
-
-    <div class="content-section" style="margin-top: 3rem; text-align: left; line-height: 1.6;">
-        <h2 data-i18n="aboutAnimalTitle">About Animal Face Test</h2>
-        <p data-i18n="aboutAnimalDesc">Ever wondered which animal you resemble the most? Our AI-powered Animal Face Test uses advanced image recognition technology to analyze your facial features and match them with animal characteristics.</p>
-        
-        <h3 data-i18n="howItWorksTitle">How It Works</h3>
-        <p data-i18n="howItWorksDesc">We use a pre-trained machine learning model (Teachable Machine by Google) that has learned to identify patterns in images. When you upload a photo or use your webcam, the model scans key facial landmarks and compares them to its database of animal faces to give you a percentage match.</p>
-
-        <h3 data-i18n="privacyTitle">Is My Data Safe?</h3>
-        <p data-i18n="privacyDesc"><strong>Yes!</strong> All image processing happens directly in your browser. Your photos and video stream are <strong>never sent to our servers</strong> or stored anywhere. You can use this tool with complete privacy.</p>
-    </div>
-
-    <footer style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--ball-bg); font-size: 0.9rem; text-align: center;">
-        <p data-i18n="footerCopy">&copy; 2026 Lotto & Animal Test. All rights reserved.</p>
-        <p>
-            <a href="privacy.html" style="color: var(--text-color); margin: 0 10px;" data-i18n="privacyPolicy">Privacy Policy</a> | 
-            <a href="terms.html" style="color: var(--text-color); margin: 0 10px;" data-i18n="termsOfService">Terms of Service</a>
+    <footer class="site-footer">
+        <p data-i18n="footerCopy">&copy; 2026 Advanced Lotto & AI Animal Analytics. All rights reserved.</p>
+        <p class="footer-links">
+            <a href="privacy.html" data-i18n="privacyPolicy">Privacy Policy</a> | 
+            <a href="terms.html" data-i18n="termsOfService">Terms of Service</a>
         </p>
     </footer>
   </div>
@@ -126,7 +196,7 @@
             }
             document.getElementById("webcam-container").style.display = "none";
             const startBtn = document.getElementById("start-btn");
-            startBtn.style.display = "block";
+            startBtn.style.display = "inline-block";
             startBtn.disabled = false;
             const lang = localStorage.getItem('lang') || 'ko';
             startBtn.textContent = lang === 'ko' ? "실시간 카메라 시작" : "Start Real-time Camera";
